@@ -1,129 +1,122 @@
-
+// Add Firebase to HealthyGorillaApp web app
 var config = {
-    apiKey: "AIzaSyAXgGKvPTXo6A8P-xYsolAdOuMNL3ouuV0",
-    authDomain: "healthy-gorilla.firebaseapp.com",
-    databaseURL: "https://healthy-gorilla.firebaseio.com",
-    projectId: "healthy-gorilla",
-    storageBucket: "healthy-gorilla.appspot.com",
-    messagingSenderId: "394761604278"
-  };
-  firebase.initializeApp(config);
+    apiKey: "AIzaSyBQ7V0lYt55JHMgDycyY4EO3bQuQRQz-Hw",
+    authDomain: "healthygorillaapp.firebaseapp.com",
+    databaseURL: "https://healthygorillaapp.firebaseio.com",
+    projectId: "healthygorillaapp",
+    storageBucket: "healthygorillaapp.appspot.com",
+    messagingSenderId: "711127676527"
+};
+firebase.initializeApp(config);
 
+// Firebase variables
+var database = firebase.database();
+var user;
+var ref = firebase.database().ref();
+var userId = JSON.parse(localStorage.getItem("UID"));
 
- var database = firebase.database();
- var user;
- var ref = firebase.database().ref();
- var userId = JSON.parse(localStorage.getItem("UID"));
- console.log("The current UID is: " + userId);
- // console.log(ref);
-
+// Console log the current user
+console.log("The current UID is: " + userId);
 
 ref.on("value", function(snapshot) {
-   // console.log(snapshot.val());
 }, function (error) {
-   console.log("Error: " + error.code);
+console.log("Error: " + error.code);
 });
-
 
 var refId = firebase.database().ref("users/" + userId);
-// console.log(refId.key);
 
-
+// Create a new user
 $("#register-btn").on("click", function(){
-		var email = $("#register_email").val().trim();
-		var password = $("#register_password").val().trim();
-		var displayName = $("#register_name").val().trim();
-		
-		firebase.auth().createUserWithEmailAndPassword(email, password).then(function(user){
-			return user.updateProfile({
-				displayName: displayName
-			});
-		}).catch(function(error) {
-		   console.log(error.code);
-		   console.log(error.message);
-		   return;
-		});
+    var email = $("#register_email").val().trim();
+    var password = $("#register_password").val().trim();
+    var displayName = $("#register_name").val().trim();
+    
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then(function(user){
+        return user.updateProfile({
+            displayName: displayName
+        });
+    }).then(
+        $( '#register-form' ).each(function(){
+        this.reset();
+    })).catch(function(error) {
+        console.log(error.code);
+        console.log(error.message);
+        return;
+    });
 
-		console.clear();
-		isLoggedIn();
+    isLoggedIn();
 
-	});
-
-
-
-$("#login-btn").on("click", function(){
-		var email = $("#login_email").val().trim();
-		var password = $("#login_password").val().trim();
-		var user = firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-		   if(error.code == "auth/invalid-email"){
-		   	$('#login-modal').modal('open');
-		   	alert("Incorrect email format.");
-		   console.log(error.code);
-		   console.log(error.message);
-		   return;
-		   }
-		   if(error.code == "auth/user-not-found"){
-		   	$('#login-modal').modal('open');
-		   	alert("Invalid email or password");
-		   console.log(error.code);
-		   console.log(error.message);
-		   return;
-		   }else{
-		   	$('#login-modal').modal('close');
-		   }
-		   
-		});
-		console.clear();
-		isLoggedIn();
 });
 
 
+// Login existing user
+$("#login-btn").on("click", function(){
+    var email = $("#login_email").val().trim();
+    var password = $("#login_password").val().trim();
+    var user = firebase.auth().signInWithEmailAndPassword(email, password)
+    .catch(function(error) {
+        if(error.code === "auth/invalid-email"){
+        $('#login-modal').modal('open');
+        alert("Incorrect email format.");
+        console.log(error.code);
+        console.log(error.message);
+        return;
+        }
+        if(error.code === "auth/user-not-found"){
+        $('#login-modal').modal('open');
+        alert("Invalid email or password");
+        console.log(error.code);
+        console.log(error.message);
+        return;
+        }else{
+        $('#login-modal').modal('close');
+        }
+        
+    });
 
+    isLoggedIn();
+
+});
+
+
+// Allow users to sign out. 
 $("#signOutBtn").on("click", function(){
-	 // if(userId === null){
-	 // 	alert("You need to be logged in to log out!")
-	 // }
-		firebase.auth().signOut().then(function() {
-		   console.clear();
-		   console.log("Logged out!")
-		   localStorage.removeItem('UID');
-		   isLoggedIn();
+    firebase.auth().signOut().then(function() {
+        console.log("Logged out!")
+        localStorage.removeItem('UID');
+        isLoggedIn();
 
-		}, function(error) {
-		   console.log(error.code);
-		   console.log(error.message);
-		});
-
+    }, function(error) {
+        console.log(error.code);
+        console.log(error.message);
+    });
 	});
 
 
 function isLoggedIn(){
-firebase.auth().onAuthStateChanged(function(user) {
-		  if (user) {
-		    console.log("User is logged in.");
-		    	user = firebase.auth().currentUser;
-				userId = firebase.auth().currentUser.uid;
-				localStorage.setItem("UID", JSON.stringify(userId));
-				  console.log(user);
-                  console.log(user.displayName);
-		 		  console.log(userId);
-                  $("#helloName").show();
-                  $("#helloName").html("Hello, " + user.displayName + "!");
-                  $("#signInBtn").hide();
-                  $("#signOutBtn").show();
-		  } else {
-            $("#signInBtn").show();
-            $("#signOutBtn").hide();
-            $("#helloName").empty();
-            $("#helloName").hide();
-		    console.log("No user logged in!");
-		  }
-});
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+        console.log("User is logged in.");
+            user = firebase.auth().currentUser;
+            userId = firebase.auth().currentUser.uid;
+            localStorage.setItem("UID", JSON.stringify(userId));
+                console.log(user);
+                console.log(user.displayName);
+                console.log(userId);
+                $("#helloName").show();
+                $("#helloName").html("Hello, " + user.displayName + "!");
+                $("#signInBtn").hide();
+                $("#signOutBtn").show();
+        } else {
+        $("#signInBtn").show();
+        $("#signOutBtn").hide();
+        $("#helloName").empty();
+        $("#helloName").hide();
+        console.log("No user logged in!");
+        }
+    });
 }
-
-console.clear();
-isLoggedIn();
-
  
 $(function() {
     
