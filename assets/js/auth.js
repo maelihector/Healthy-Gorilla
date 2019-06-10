@@ -1,13 +1,15 @@
 // Add Firebase to HealthyGorillaApp web app
-var config = {
-    apiKey: "AIzaSyBQ7V0lYt55JHMgDycyY4EO3bQuQRQz-Hw",
-    authDomain: "healthygorillaapp.firebaseapp.com",
-    databaseURL: "https://healthygorillaapp.firebaseio.com",
-    projectId: "healthygorillaapp",
-    storageBucket: "healthygorillaapp.appspot.com",
-    messagingSenderId: "711127676527"
+var firebaseConfig = {
+  apiKey: "AIzaSyCPIfGudl6LOhVtt2vIM-lDUTdHa33WPLI",
+  authDomain: "healthygorilla.firebaseapp.com",
+  databaseURL: "https://healthygorilla.firebaseio.com",
+  projectId: "healthygorilla",
+  storageBucket: "healthygorilla.appspot.com",
+  messagingSenderId: "977887423528",
+  appId: "1:977887423528:web:c9dbade3d29fb137"
 };
-firebase.initializeApp(config);
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
 // Firebase variables
 var database = firebase.database();
