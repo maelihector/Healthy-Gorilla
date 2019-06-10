@@ -1,9 +1,14 @@
   /* Use this file to override Materialize files so you can update  */
-  .responsive-img {
+  img {
     height: 100%;
     width: 100%
   }
 
+  p {
+    line-height: 2rem;
+  }
+
+  /* Navbar Start */
   nav {
     background-color: #fff;
   }
@@ -13,27 +18,28 @@
     color: #444;
   }
 
-  p {
-    line-height: 2rem;
+  nav .brand-logo.right {
+    top: -.2rem;
+  }
+
+  @media screen and (max-width:468px) {
+    nav .brand-logo.right img {
+      display: none;
+    }
   }
 
   .brand-logo {
     opacity: 0.8;
   }
 
-  nav .brand-logo.right {
-    top: -.2rem;
-  }
-
   i {
-    color:rgb(4, 63, 4);
+    color: rgb(4, 63, 4);
   }
 
-  @media screen and (max-width:468px){
-    nav .brand-logo.right img {
-      display: none;
-    }
+  .material-icons {
+    font-size: inherit;
   }
+
   /* This css is for the .main class */
 
   #main {
@@ -66,7 +72,7 @@
   }
 
   .hero {
-    opacity:0.6;
+    opacity: 0.6;
     background-position: center center;
     background-size: cover;
     background-image: url("../images/greenjuice.jpg");
@@ -290,7 +296,7 @@
     .solution__inner {
       -webkit-box-pack: center;
       -ms-flex-pack: center;
-      justify-content:center;
+      justify-content: center;
       padding: 40px;
       border: 2px dashed #188138
     }
@@ -388,7 +394,7 @@
   .learn-more__link {
     font-style: italic;
     text-decoration: none;
-    color:#91db70;
+    color: #91db70;
   }
 
   @media screen and (min-width:0) and (max-width:839px) {
@@ -403,7 +409,9 @@
 
   .learn-more__link:hover,
   .learn-more__link:focus {
-    text-decoration: none
+    text-decoration: none;
+    color: #56d41c;
+
   }
 
   .footer__bottom {
@@ -451,9 +459,9 @@
     }
   }
 
-  .footer__navigation a {
+  /* .footer__navigation a {
     color: #fff
-  }
+  } */
 
   .footer__navigation a:hover,
   .footer__navigation a:focus {
@@ -523,10 +531,6 @@
   /* End of footer css. */
 
 
-  .button-collapse {
-    color: #26a69a;
-  }
-
   .parallax-container {
     min-height: 380px;
     line-height: 0;
@@ -537,14 +541,6 @@
 
   .parallax-container .section {
     width: 100%;
-  }
-
-  .icon-block {
-    padding: 0 15px;
-  }
-
-  .icon-block .material-icons {
-    font-size: inherit;
   }
 
   footer.page-footer {
@@ -655,8 +651,6 @@
     #index-banner .section {
       top: 10%;
     }
-
-    /* This css is for the .main class */
 
   }
 
