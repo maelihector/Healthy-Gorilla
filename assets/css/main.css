@@ -40,6 +40,10 @@
     font-size: inherit;
   }
 
+  h2 {
+    color: #0d4c20;
+  }
+
   /* This css is for the .main class */
 
   #main {
