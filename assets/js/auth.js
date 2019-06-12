@@ -14,84 +14,54 @@ $(document).ready(function () {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
-  // Function to handle firebase registration submit
+  // Function to handle new user registration
   function handleUserRegistration() {
-    event.preventDefault();
+    // Grab user information from DOM
     var email = $("#register_email").val();
     var password = $("#register_password").val();
     var displayName = $("#register_name").val();
+    // Make sure user enters email address
     if (email.length < 4) {
       alert('Please enter an email address.');
       return;
     }
+    // Make sure password is over 4 characters long
     if (password.length < 4) {
       alert('Please enter a password.');
       return;
     }
-    // Create new user with email and password
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // [START_EXCLUDE]
-      if (errorCode == 'auth/weak-password') {
-        alert('The password is too weak.');
-      } else {
-        alert(errorMessage);
-      }
-      console.log(error);
-      // [END_EXCLUDE]
-    });
-
-    localStorage.setItem("displayName", displayName);
-    console.log(displayName);
-
-    var uid = localStorage.getItem("uid");
-
-    firebase.database().ref('users/' + displayName).set({
-      displayName: displayName,
-      email: email,
-      uid: uid
-    });
-
-    $('.modal').hide();
-
-
-
-  }
-
-  // Listen for auth state changes
-  function initiateAPP() {
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        // If user is signed in:
-        var displayName = localStorage.getItem('displayName');
-        var email = user.email;
+    // Create new user with user email and password and check for firebase errors
+    user = firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(function (user) {
         var uid = user.uid;
-        console.log(user, email, uid);
-        $("#helloName").show();
-        $("#helloName").html("<h2>Hello " + displayName + "!</h2>");
-        $("#signInBtn").hide();
-        $("#signOutBtn").show();
-        return (user);
-      } else {
-        $("#signInBtn").show();
-        $("#signOutBtn").hide();
-      }
-    })
+        // Save user info to firebase database
+        firebase.database().ref('users/' + uid).set({
+          displayName: displayName,
+          email: email,
+          uid: uid
+        });
+        // Save user info to local storage
+        setLocalStorge(displayName, email, uid);
+        console.log(user);
+        greetUser(displayName);
+        // Handle Errors here.
+      }).catch(function (error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // Allow for firebase to check password weakness
+        if (errorCode == 'auth/weak-password') {
+          alert('The password is too weak.');
+        } else {
+          alert(errorMessage);
+        }
+        console.log(error);
+      });
+    // Hide registration modal --** Doesn't quite work yet
+    $('.modal').hide();
   }
 
-  initiateAPP();
-  //  EVENTS
-
-  // Event handler for registration submit
-  $("#register-btn").on("click", function (event) {
-    handleUserRegistration();
-  });
-
-  // Allow users to sign out. 
-  $("#signOutBtn").on("click", function (event) {
-    event.preventDefault();
+  // Function event to handle user sign out
+  function handleUserSignOut() {
     firebase.auth().signOut().then(function () {
       $('#login-modal').css('display:none');
       console.log("Logged out!");
@@ -100,15 +70,17 @@ $(document).ready(function () {
       location.reload(true);
       $("#signInBtn").show();
     });
-  });
+  }
 
-  // Login existing user
-  $("#login-btn").on("click", function (event) {
-    event.preventDefault();
+  // Functione event to handle user login
+  function handleUserLogIn() {
     var email = $("#login_email").val().trim();
     var password = $("#login_password").val().trim();
     var user = firebase.auth().signInWithEmailAndPassword(email, password)
-      .catch(function (error) {
+      .then(function (user) {
+        findUserDatabaseData();
+        return user;
+      }).catch(function (error) {
         if (error.code === "auth/invalid-email") {
           $('#login-modal').modal('open');
           alert("Incorrect email format.");
@@ -122,17 +94,98 @@ $(document).ready(function () {
           console.log(error.code);
           console.log(error.message);
           return;
-        } else {
-          $('#login-modal').modal('close');
         }
-
-        localStorageUserId = localStorage.getItem("uid", JSON.stringify(userId));
-        console.log(localStorageUserId);
-        // userId = firebase.auth().currentUser.uid;
-
       });
+    $('#login-modal').modal('close');
+    $("#signInBtn").hide();
+    $("#signOutBtn").show();
+    return user;
+  }
+
+  // Function that finds if user is in database
+  function findUserDatabaseData() {
+    var myUserId = firebase.auth().currentUser.uid;
+    console.log(myUserId);
+    var ref = firebase.database().ref('users').orderByKey();
+    ref.once('value').then(function (snapshot) {
+      console.log(snapshot);
+      // Stop forEach loop once it reaches user data
+      var BreakException = {};
+      try {
+        snapshot.forEach(function (childSnapshot) {
+          var key = childSnapshot.key; // is uid
+          var childData = childSnapshot.val(); // user object
+          var userName = childData.displayName; // user display name
+          var userEmail = childData.email; // user email
+          console.log(key);
+          console.log(userName);
+          console.log(userEmail);
+          // Once user is matched to their data:
+          if (key === myUserId) {
+            console.log(key, myUserId, userName, userEmail);
+            greetUser(userName);
+            setLocalStorge(userName, userEmail, key);
+            throw BreakException;
+          }
+        });
+
+      } catch (e) {
+        if (e !== BreakException) throw e;
+      }
+    })
+  }
+
+  // Function that changes HTML when user is signed in
+  function greetUser(displayName) {
+    $("#helloName").show();
+    $("#helloName").html("<h2>Hello " + displayName + "!</h2>"); // works after refresh if user didn't sign out
+    $("#signInBtn").hide();
+    $("#signOutBtn").show();
+  }
+
+  // Function to set local storaage
+  function setLocalStorge(displayName, email, uid) {
+    localStorage.setItem("displayName", displayName);
+    localStorage.setItem("email", email);
+    localStorage.setItem("uid", uid);
+    console.log(displayName, email, uid);
+  }
+
+  // Functiont hat initiates app by checking if a user logged in.
+  function checkIfSignedIn() {
+    var isSignedin = localStorage.getItem('displayName');
+    console.log(isSignedin);
+    if (isSignedin) {
+      greetUser(isSignedin);
+    } else {
+      console.log("No user is logged in");
+      localStorage.clear();
+      $("#signInBtn").show();
+    }
+  }
+
+  // Start APP by checking if user is signed in on onlaod
+  checkIfSignedIn();
+
+
+  //  ** EVENTS **
+
+  // Event handler for new user registration submit
+  $("#register-btn").on("click", function (event) {
+    event.preventDefault();
+    handleUserRegistration();
   });
 
+// Event handler for signing out user
+  $("#signOutBtn").on("click", function (event) {
+    event.preventDefault();
+    handleUserSignOut();
+  });
 
+  // Event handler for logging in user
+  $("#login-btn").on("click", function (event) {
+    event.preventDefault();
+    handleUserLogIn();
+  });
 
 });
