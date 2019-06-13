@@ -37,8 +37,7 @@ $(document).ready(function () {
         // Save user info to firebase database
         firebase.database().ref('users/' + uid).set({
           displayName: displayName,
-          email: email,
-          uid: uid
+          email: email
         });
         // Save user info to local storage
         setLocalStorge(displayName, email, uid);
@@ -78,7 +77,7 @@ $(document).ready(function () {
     var password = $("#login_password").val().trim();
     var user = firebase.auth().signInWithEmailAndPassword(email, password)
       .then(function (user) {
-        findUserDatabaseData();
+        getUserData();
         return user;
       }).catch(function (error) {
         if (error.code === "auth/invalid-email") {
@@ -102,37 +101,17 @@ $(document).ready(function () {
     return user;
   }
 
-  // Function that finds if user is in database
-  function findUserDatabaseData() {
-    var myUserId = firebase.auth().currentUser.uid;
-    console.log(myUserId);
-    var ref = firebase.database().ref('users').orderByKey();
-    ref.once('value').then(function (snapshot) {
-      console.log(snapshot);
-      // Stop forEach loop once it reaches user data
-      var BreakException = {};
-      try {
-        snapshot.forEach(function (childSnapshot) {
-          var key = childSnapshot.key; // is uid
-          var childData = childSnapshot.val(); // user object
-          var userName = childData.displayName; // user display name
-          var userEmail = childData.email; // user email
-          console.log(key);
-          console.log(userName);
-          console.log(userEmail);
-          // Once user is matched to their data:
-          if (key === myUserId) {
-            console.log(key, myUserId, userName, userEmail);
-            greetUser(userName);
-            setLocalStorge(userName, userEmail, key);
-            throw BreakException;
-          }
-        });
-
-      } catch (e) {
-        if (e !== BreakException) throw e;
-      }
-    })
+  // Function that finds user data 
+  function getUserData() {
+    var userId = firebase.auth().currentUser.uid;
+    return firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
+      var displayName = (snapshot.val() && snapshot.val().displayName);
+      var userEmail = (snapshot.val() && snapshot.val().email);
+      console.log(displayName);
+      console.log(userEmail);
+      greetUser(displayName);
+      setLocalStorge(displayName, userEmail, userId);
+    });
   }
 
   // Function that changes HTML when user is signed in
@@ -176,7 +155,7 @@ $(document).ready(function () {
     handleUserRegistration();
   });
 
-// Event handler for signing out user
+  // Event handler for signing out user
   $("#signOutBtn").on("click", function (event) {
     event.preventDefault();
     handleUserSignOut();

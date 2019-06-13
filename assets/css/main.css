@@ -46,6 +46,10 @@
 
   /* This css is for the .main class */
 
+  #blankHeartImage {
+    width: 10%;
+  }
+
   #main {
     margin: 0 auto;
     overflow-x: hidden;
