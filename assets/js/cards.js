@@ -21,16 +21,16 @@ function createCard(cuisine, restaurants) {
     )
   restaurants.forEach((value, index) => {
     cardElem.find(".collection")
-      .append(
-        $("<a>")
-        .attr("href", value.website)
-        .text(value.name)
-        .append("<p>", value.address1)
-        .append("<p>", value.phone)
-        .addClass("collection-item")
-        .attr("target", "_blank")
-        .append('<a><img id="theImg" src="assets/images/heart.png"/></a>')
-      )
+      .append($("<div>").append(
+          $("<a>")
+          .attr("href", value.website)
+          .attr("target", "_blank")
+          .text(value.name))
+        .append("<p>" + value.address1 + "</p>")
+        .append("<p>" + value.phone + "</p>")
+        .append('<a><img id="blankHeartImage" src="assets/images/heart.png"/></a>')
+        .addClass("collection-item"))
+
   })
   $("#cardDiv").append(cardElem);
 }
@@ -82,15 +82,10 @@ function codeAddress() {
 // Call codeAddress() function
 // $("#enterButton").on("click", codeAddress);
 
-$("#enterButton").click(function() {
+$("#enterButton").click(function () {
   codeAddress();
   $('#after-hero').removeClass('after-hero');
   $('html, body').animate({
-      scrollTop: $("#cardDiv").offset().top
+    scrollTop: $("#cardDiv").offset().top
   }, 2000);
-});
-
-// Test if favorites is added to account.html
-$("#theImg").on("click", function () {
-  alert("Added to favorites!")
 });
