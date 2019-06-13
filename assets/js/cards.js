@@ -28,7 +28,7 @@ function createCard(cuisine, restaurants) {
           .text(value.name))
         .append("<p>" + value.address1 + "</p>")
         .append("<p>" + value.phone + "</p>")
-        .append('<a><img id="blankHeartImage" src="assets/images/heart.png"/></a>')
+        .append('<a><img id="blankHeartImage" src="assets/images/heart.png" falseFavorite="assets/images/heart.png" trueFavorite="assets/images/redheart.png" state="falseFavorite"/></a>')
         .addClass("collection-item"))
 
   })
