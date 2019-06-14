@@ -1,36 +1,21 @@
 // Function to create cards to dump vegguide data
 function createCard(cuisine, restaurants) {
 
-  let cardElem = $("<div>")
-    .addClass("col s12 m6")
-    .append(
-      $("<div>")
-      .addClass("card")
-      .append(
-        $("<div>")
-        .addClass("card-content")
-        .append(
-          $("<span>")
-          .addClass("card-title")
-          .text(cuisine)
-        ).append(
-          $("<div>")
-          .addClass("collection")
-        )
+  let cardElem = $("<div>").addClass("col s12 m6")
+    .append($("<div>").addClass("card")
+      .append($("<div>").addClass("card-content")
+        .append($("<span>").addClass("card-title").text(cuisine))
+        .append($("<div>").addClass("collection"))
       )
     )
   restaurants.forEach((value, index) => {
     cardElem.find(".collection")
-      .append($("<div>").append(
-          $("<a>")
-          .attr("href", value.website)
-          .attr("target", "_blank")
-          .text(value.name))
+      .append($("<div>").addClass("collection-item")
+        .append($("<a>").attr("href", value.website).attr("target", "_blank").text(value.name))
         .append("<p>" + value.address1 + "</p>")
         .append("<p>" + value.phone + "</p>")
         .append('<a><img id="blankHeartImage" src="assets/images/heart.png" falseFavorite="assets/images/heart.png" trueFavorite="assets/images/redheart.png" state="falseFavorite"/></a>')
-        .addClass("collection-item"))
-
+      )
   })
   $("#cardDiv").append(cardElem);
 }

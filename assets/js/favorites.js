@@ -3,7 +3,7 @@ $(document).ready(function () {
   // Function to add user favorites to database
   $(document).on('click', '#blankHeartImage', function () {
 
-    // Authorize current user
+    // Get current user uid
     var currentUserUid = firebase.auth().currentUser.uid;
     console.log(currentUserUid);
 
@@ -19,6 +19,7 @@ $(document).ready(function () {
 
     // Create a new favorite entry
     var addFavorite = {
+      name: name,
       website: website,
       address: address,
       phoneNumber: phoneNumber
