@@ -22,16 +22,17 @@ $(document).ready(function () {
           .append($("<span>").addClass("card-title").text(favorites.name))
         )
         .append($("<div>").addClass("card-content")
-          .append($("<ul>").addClass("restInfo")
-            .append($("<li>").text("Phone: " + favorites.phoneNumber))
-            .append($("<li>").text("Address: " + favorites.address))
-            .append($("<li>").text("Website: ")
-              .append($("<a>").attr("href", favorites.website).text(favorites.website))
-            )
+          .append($("<p>").text("Phone: " + favorites.phoneNumber))
+          .append($("<p>").text("Address: " + favorites.address))
+          .append($("<a>")
+            .append($("<img>").attr("id", "redheart").attr("src", "assets/images/redheart.png"))
           )
         )
+        .append($("<div>").addClass("card-action").attr("style", "overflow:scroll")
+          .append($("<a>").attr("href", favorites.website).attr("style", "text-transform:none").text(favorites.website))
+        )
       )
-    // Find id="favorites" on the DOM and append the created cards
+    // Append the created cards
     $("#favorites").append(favoriteCardElement);
   }
 
@@ -50,6 +51,22 @@ $(document).ready(function () {
       }
     });
   }
+
+  // Function to update user favorites 
+  $(document).on('click', '#redheart', function () {
+    // Get userId
+    var userId = firebase.auth().currentUser.uid;
+    // Grab the elememt user wants deleted
+    let favoriteItem = $(this).parent();
+    favoriteItem = favoriteItem[0].offsetParent.childNodes[0].innerText;
+
+    // Remove favorite from database
+    return firebase.database().ref('/users/' + userId + '/favorites/' + favoriteItem).remove()
+    .then(function() {
+      // Reload page so favorites can update
+      location.reload(true);
+    });
+  });
 
 
 });
