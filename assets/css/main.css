@@ -46,7 +46,7 @@
 
   /* This css is for the .main class */
 
-  #blankHeartImage {
+  #blankHeartImage, #redheart{
     width: 10%;
   }
 
@@ -600,11 +600,6 @@
   #login_register_btn {
     float: left;
     margin-left: 5px;
-
-  }
-
-  #login_lost_btn {
-    float: left;
 
   }
 

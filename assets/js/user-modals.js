@@ -1,13 +1,13 @@
-$(document).ready(function(){
+$(document).ready(function () {
 
 
   var formLogin = $('#login-form');
   var formRegister = $('#register-form');
   var modalAnimateTime = 300;
   var divForms = $('#div-forms');
-  //   var $formLost = $('#lost-form');
-  //   var $msgAnimateTime = 150;
-  //   var $msgShowTime = 2000;
+  var formLost = $('#lost-form');
+  var msgAnimateTime = 150;
+  var msgShowTime = 2000;
 
   //   $("form").submit(function () {
   //     switch (this.id) {
@@ -53,18 +53,18 @@ $(document).ready(function(){
   $('#register_login_btn').click(function () {
     modalAnimate(formRegister, formLogin);
   });
-  //   $('#login_lost_btn').click(function () {
-  //     modalAnimate($formLogin, $formLost);
-  //   });
-  //   $('#lost_login_btn').click(function () {
-  //     modalAnimate($formLost, $formLogin);
-  //   });
-  //   $('#lost_register_btn').click(function () {
-  //     modalAnimate($formLost, $formRegister);
-  //   });
-  //   $('#register_lost_btn').click(function () {
-  //     modalAnimate($formRegister, $formLost);
-
+  $('#login_lost_btn').click(function () {
+    modalAnimate(formLogin, formLost);
+  });
+  $('#lost_login_btn').click(function () {
+    modalAnimate(formLost, formLogin);
+  });
+  $('#lost_register_btn').click(function () {
+    modalAnimate(formLost, formRegister);
+  });
+  $('#register_lost_btn').click(function () {
+    modalAnimate(formRegister, formLost);
+  });
 
   function modalAnimate(oldForm, newForm) {
     var oldH = oldForm.height();
