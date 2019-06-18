@@ -4,32 +4,38 @@ $(document).ready(function () {
   $(document).on('click', '#blankHeartImage', function () {
 
     // Get current user uid
-    var currentUserUid = firebase.auth().currentUser.uid;
+    let currentUserUid = firebase.auth().currentUser.uid;
     console.log(currentUserUid);
 
     // Grab the parent element of the clicked image
-    var favoriteCollectionItem = $(this).parent();
-
+    let favoriteCollectionItem = $(this).parent();
+    // Grab the favorite cuisine
+    let favoriteCuisine = favoriteCollectionItem[0].offsetParent.offsetParent.firstElementChild.childNodes[0].innerText;
+    console.log(favoriteCuisine);
     // Grab the information we want to store in the database
-    var favoriteObject = favoriteCollectionItem[0].parentElement.children;
-    var name = favoriteObject[0].innerHTML;
-    var website = favoriteObject[0].href;
-    var address = favoriteObject[1].innerHTML;
-    var phoneNumber = favoriteObject[2].innerHTML;
+    let favoriteObject = favoriteCollectionItem[0].parentElement.children;
+    let name = favoriteObject[0].innerHTML;
+    // Name of restaurant sometime contains an invalid key in the path. Keys must be non-empty strings and can't contain . # $ / [ ]
+    // Remove unwanted characters
+    name = name.replace(/[.#$\/\\]/g, "");
+    let website = favoriteObject[0].href;
+    let address = favoriteObject[1].innerHTML;
+    let phoneNumber = favoriteObject[2].innerHTML;
 
     // Create a new favorite entry
-    var addFavorite = {
+    let addFavorite = {
       name: name,
       website: website,
       address: address,
-      phoneNumber: phoneNumber
+      phoneNumber: phoneNumber,
+      cuisine: favoriteCuisine
     };
 
-    var updates = {};
+    let updates = {};
 
     // retrieve and store images to display when favorited
-    var state = $(this).attr("state");
-    // Toggle between adding and removing favarites
+    let state = $(this).attr("state");
+    // Toggle between adding and removing favorites
     if (state === "falseFavorite") {
       $(this).attr("src", $(this).attr("trueFavorite"));
       $(this).attr("state", "trueFavorite");
