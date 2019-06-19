@@ -46,7 +46,8 @@
 
   /* This css is for the .main class */
 
-  #blankHeartImage, #redheart{
+  #blankHeartImage,
+  #redheart {
     width: 10%;
   }
 
@@ -677,4 +678,15 @@
     position: relative;
     top: 7px;
     margin-left: 5px;
+  }
+
+
+  @media only screen and (min-width:601px) {
+    .row .col.m6 {
+      height: 500px;
+    }
+  }
+
+  .row {
+    width: 100%;
   }
