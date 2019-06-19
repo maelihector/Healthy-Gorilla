@@ -92,7 +92,7 @@ $(document).ready(function () {
     }
 
     // Build card using jQuery
-    let favoriteCardElement = $("<div>").addClass("col s12 m6 l4")
+    let favoriteCardElement = $("<div>").addClass("col s12 m6 l4 size-med")
       .append($("<div>").addClass("card")
         .append($("<div>").addClass("card-image")
           .append($("<img>").attr("src", cuisineImage).attr("alt", "Image of cuisine type"))

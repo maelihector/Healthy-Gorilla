@@ -682,11 +682,11 @@
 
 
   @media only screen and (min-width:601px) {
-    .row .col.m6 {
+    .size-med {
       height: 500px;
     }
   }
 
-  .row {
+  .fav-row {
     width: 100%;
   }
