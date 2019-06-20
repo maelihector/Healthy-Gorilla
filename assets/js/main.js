@@ -6,6 +6,8 @@ $(document).ready(function () {
   });
 
   $('#login-modal').modal();
+  $('#message-sent').modal();
+
 
   $('#mobile-nav-trigger').on('click', function () {
     $('.navigation').css({
