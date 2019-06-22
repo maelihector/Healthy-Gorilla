@@ -11,6 +11,7 @@ var firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+
 $(document).ready(function () {
 
   // Function to handle new user registration
@@ -30,9 +31,9 @@ $(document).ready(function () {
       return;
     }
     // Create new user with user email and password and check for firebase errors
-    user = firebase.auth().createUserWithEmailAndPassword(email, password)
+    firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(function (user) {
-        var uid = user.uid;
+        let uid = user.uid;
         // Save user info to firebase database
         firebase.database().ref('users/' + uid).set({
           displayName: displayName,
@@ -74,6 +75,7 @@ $(document).ready(function () {
   function handleUserLogIn() {
     var email = $("#login_email").val().trim();
     var password = $("#login_password").val().trim();
+
     // Make sure user enters email address
     if (email.length < 4) {
       alert('Please enter an email address.');
@@ -84,12 +86,15 @@ $(document).ready(function () {
       alert('Please enter a password.');
       return false;
     }
-    var user = firebase.auth().signInWithEmailAndPassword(email, password)
+
+    firebase.auth().signInWithEmailAndPassword(email, password)
       .then(function (user) {
         $('#login-modal').modal('close');
         $("#signInBtn").hide();
         $("#signOutBtn").show();
-        getUserData();
+        console.log(user);
+        console.log(user.user.uid);
+        getUserData(user.user.uid);
       }).catch(function (error) {
         if (error.code === "auth/invalid-email") {
           $('#login-modal').modal('open');
@@ -98,7 +103,6 @@ $(document).ready(function () {
           console.log(error.message);
           $("#signInBtn").show();
           $("#signOutBtn").hide();
-          
           return;
         }
         if (error.code === "auth/user-not-found") {
@@ -111,19 +115,17 @@ $(document).ready(function () {
           return;
         }
       });
-    return user;
   }
 
   // Function that finds user data 
-  function getUserData() {
-    var userId = firebase.auth().currentUser.uid;
-    return firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
+  function getUserData(user) {
+    return firebase.database().ref('/users/' + user).once('value').then(function (snapshot) {
       var displayName = (snapshot.val() && snapshot.val().displayName);
       var userEmail = (snapshot.val() && snapshot.val().email);
       console.log(displayName);
       console.log(userEmail);
       greetUser(displayName);
-      setLocalStorge(displayName, userEmail, userId);
+      setLocalStorge(displayName, userEmail, user);
     });
   }
 
@@ -145,16 +147,18 @@ $(document).ready(function () {
 
   // Functiont hat initiates app by checking if a user logged in.
   function checkIfSignedIn() {
-    var isSignedin = localStorage.getItem('displayName');
-    console.log(isSignedin);
-    if (isSignedin) {
-      greetUser(isSignedin);
+    let displayName = localStorage.getItem('displayName');
+    console.log(displayName);
+    if (displayName) {
+      greetUser(displayName);
     } else {
       console.log("No user is logged in");
       localStorage.clear();
       $("#signInBtn").show();
     }
   }
+
+  checkIfSignedIn();
 
   // Function to send a password reset link to user
   function sendPasswordReset() {
@@ -180,9 +184,6 @@ $(document).ready(function () {
     });
     // [END sendpasswordemail];
   }
-  // Start APP by checking if user is signed in on onlaod
-  checkIfSignedIn();
-
 
   //  ** EVENTS **
 
@@ -205,9 +206,11 @@ $(document).ready(function () {
   });
 
   // Event handler for resetting user password
-  $("#password-reset-btn").on("click", function(event){
+  $("#password-reset-btn").on("click", function (event) {
     event.preventDefault();
     sendPasswordReset();
   })
+
+
 
 });

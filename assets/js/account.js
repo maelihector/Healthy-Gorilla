@@ -1,16 +1,24 @@
 $(document).ready(function () {
 
-  // Check if user is logged in
-  firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
-      getFavorites(user);
-      return user;
-    } else {
-      console.log("User is not signed in!")
-      // If User is not signed in maybe use session storage instead?
-      // If no favorites in session, text("You haven't favorited anything yet")
-    }
-  });
+  function initApp() {
+    firebase.auth().onAuthStateChanged(function (user) {
+
+      if (user) {
+        // User is signed in.
+        let email = user.email;
+        let isAnonymous = user.isAnonymous;
+        let uid = user.uid;
+        console.log(user);
+        console.log(email, isAnonymous, uid);
+        getFavorites(uid);
+      } else {
+        console.log("No user is signed in.");
+      }
+    });
+
+  }
+
+  initApp();
 
   // Function to create favorite cards
   function createFavoriteCards(favorites) {
@@ -114,8 +122,7 @@ $(document).ready(function () {
   }
 
   // Function that fetches user data 
-  function getFavorites(user) {
-    let userId = user.uid;
+  function getFavorites(userId) {
     // Call firebase database to get user's data
     return firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
       cards = [];
