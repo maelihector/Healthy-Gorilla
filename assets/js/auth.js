@@ -33,7 +33,8 @@ $(document).ready(function () {
     // Create new user with user email and password and check for firebase errors
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(function (user) {
-        let uid = user.uid;
+        let uid = user.user.uid;
+        console.log(uid);
         // Save user info to firebase database
         firebase.database().ref('users/' + uid).set({
           displayName: displayName,
