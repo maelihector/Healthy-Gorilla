@@ -136,6 +136,41 @@ $(document).ready(function () {
     });
   }
 
+
+  // This creates two variables: storageService is a reference to firebase storage service — it allows you to use all of the methods they make available for storing data and files.
+  const storageService = firebase.storage();
+  // The second, storageRef is a reference to your actual instantiation of that service — it will lead you to your specific database and root file location where things get uploaded.
+  const storageRef = storageService.ref();
+
+  let selectedFile;
+
+
+  function handleFileUploadChange(e) {
+    selectedFile = e.target.file[0];
+  }
+
+  function handleFileUploadSubmit(e) {
+    //create a child directory called images, and place the file inside this directory
+    const uploadTask = storageRef.child(`images/${selectedFile.name}`).put(selectedFile); 
+    uploadTask.on('state_changed', (snapshot) => {
+      // Observe state change events such as progress, pause, and resume
+    }, (error) => {
+      // Handle unsuccessful uploads
+      console.log(error);
+    }, () => {
+      // Do something once upload is complete
+      console.log('success');
+    });
+  }
+
+  $(document).on('change', '.file-select', function (e) {
+    handleFileUploadChange(e);
+  });
+
+  $(document).on('click', '.file-submit', function (e) {
+    handleFileUploadSubmit(e);
+  })
+
   // Function to update user favorites 
   $(document).on('click', '#redheart', function () {
     // Get userId

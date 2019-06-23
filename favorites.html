@@ -24,7 +24,7 @@
 
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>HG | Healthy Gorilla </title>
+  <title>HG | Favorites </title>
 
   <!-- CSS -->
   <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet">
@@ -32,9 +32,6 @@
   <link href="./assets/materialize/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
   <link href="./assets/css/main.css" type="text/css" rel="stylesheet" media="screen,projection" />
   <link href="./assets/css/modal.css" type="text/css" rel="stylesheet" media="screen,projection" />
-
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPIfGudl6LOhVtt2vIM-lDUTdHa33WPLI"
-  type="text/javascript"></script>
 
 </head>
 
@@ -49,26 +46,26 @@
           <i class="material-icons">menu</i>
         </a>
         <ul class="left hide-on-med-and-down">
-          <li class="active">
+          <li>
             <a href="index.html">Home</a>
           </li>
           <li>
             <a href="contact.html">Contact Us</a>
           </li>
-          <li>
+          <li class="active">
             <a href="favorites.html">My Favorites</a>
           </li>
         </ul>
 
         <!-- Side Nav starts here -->
         <ul class="side-nav" id="mobile-demo">
-          <li class="active">
+          <li>
             <a href="index.html">Home</a>
           </li>
           <li>
             <a href="contact.html">Contact Us</a>
           </li>
-          <li>
+          <li class="active">
             <a href="favorites.html">Favorites</a>
           </li>
         </ul>
@@ -91,37 +88,25 @@
   <!-- Middle section starts here -->
   <div id="main">
     <div class="main-container">
+
       <div id="hero" class="hero hero--index">
         <div class="container">
           <h1 id="helloName"></h1>
           <h1>Healthy Gorilla</h1>
-          <a id="getStarted" href="index.html#zipcode" class="btn btn-primary btn-lg">Get Started</a>
           <h3>Delicous. Healthy. At Your Fingertips. </h3>
         </div>
       </div>
-      <!-- Scroll items are here. -->
-      <div id="after-hero" class="after-hero">
-        <div class="row" id="cardDiv">
-        </div>
-      </div>
+
       <div id="solutions" class="panel panel--solutions">
-        <div class="solution solution--zipSearch">
-          <div class="solution__container" id="searchZip">
+        <div class="solution">
+          <div class="solution__container">
             <div class="solution__inner">
-              <h2 class="solution__header">Enter your zipcode</h2>
-              <p class="solution__body">Search what is near you!</p>
-              <div class="row">
-                <form class="col s12">
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <i class="material-icons prefix">my_location</i>
-                      <input id="zipcode" type="text" class="validate" maxlength="5">
-                      <label for="zipcode">Your Zip Code</label>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <button class="btn btn-primary btn-lg" id="enterButton">Enter</button>
+              <h2 class="solution__header">My Favorites:</h2>
+              <p class="solution__body"></p>
+
+              <!-- Dump user favorites here. -->
+              <div class="row fav-row" id="favorites"></div>
+
             </div>
           </div>
         </div>
@@ -232,21 +217,22 @@
 
   <!-- jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  
+
   <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
-  
+
   <!-- Add Firebase products that you want to use -->
   <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-database.js"></script>
-  
-  <!-- Other Scripts -->  
+
+  <!-- Other Scripts -->
   <script src="assets/materialize/js/materialize.js"></script>
   <script src="assets/js/auth.js"></script>
   <script src="assets/js/main.js"></script>
-  <script src="assets/js/cards.js"></script>
   <script src="assets/js/favorites.js"></script>
+  <script src="assets/js/account.js"></script>
   <script src="assets/js/user-modals.js"></script>
+
 
 
 </body>
