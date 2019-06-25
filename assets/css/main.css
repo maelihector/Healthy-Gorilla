@@ -275,6 +275,7 @@
       background-color: rgba(255, 255, 255, 0.904);
       border-color: transparent
     }
+
     .solution__container {
       padding: 100px 80px
     }
@@ -355,14 +356,16 @@
   /* End of main container css */
   /* Start of footer css */
 
-  footer {
+  footer,
+  .meet-div {
     position: relative;
     z-index: 16;
     color: #fff;
     overflow: hidden
   }
 
-  .panel--learn-more {
+  .panel--learn-more,
+  .meet-div {
     background-color: #05180ae1;
     overflow: hidden;
     -webkit-transition: background-color .3s ease;
@@ -370,7 +373,9 @@
   }
 
   @media screen and (min-width:840px) {
-    .panel--learn-more {
+
+    .panel--learn-more,
+    .meet-div {
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex;
@@ -389,28 +394,47 @@
     background-color: #082505
   }
 
-  .learn-more__header {
+  .meet-div:hover,
+  .meet-div:focus {
+    background-color: #440606;
+  }
+
+  .learn-more__header,
+  .meet-div-header {
     font-size: 40px;
     margin: 40px 20px;
     text-align: center;
     text-transform: none
   }
 
+  .meet-div {
+    background: #5d0c06de;
+  }
+
+  #helloName {
+    margin-top: 150px;
+  }
+
   @media screen and (min-width:840px) {
-    .learn-more__header {
+
+    .learn-more__header,
+    .meet-div-header {
       margin: 0 auto;
       font-size: 35px
     }
   }
 
-  .learn-more__link {
+  .learn-more__link,
+  .meet-div-link {
     font-style: italic;
     text-decoration: none;
     color: #91db70;
   }
 
   @media screen and (min-width:0) and (max-width:839px) {
-    .learn-more__link {
+
+    .learn-more__link,
+    .meet-div-link {
       display: block
     }
 
@@ -420,7 +444,9 @@
   }
 
   .learn-more__link:hover,
-  .learn-more__link:focus {
+  .learn-more__link:focus,
+  .meet-div-link:hover,
+  .meet-div-link:focus {
     text-decoration: none;
     color: #56d41c;
 

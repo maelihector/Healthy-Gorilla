@@ -49,3 +49,7 @@ var width = function (checkWidth) {
   }
 };
 width;
+
+$(document).on('click', '.meet-div-link', function () {
+  alert("Coming Soon");
+});
