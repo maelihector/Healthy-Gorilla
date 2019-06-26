@@ -34,7 +34,6 @@ $(document).ready(function () {
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(function (user) {
         let uid = user.user.uid;
-        console.log(uid);
         // Save user info to firebase database
         firebase.database().ref('users/' + uid).set({
           displayName: displayName,
@@ -42,7 +41,6 @@ $(document).ready(function () {
         });
         // Save user info to local storage
         setLocalStorge(displayName, email, uid);
-        console.log(user);
         greetUser(displayName);
         // Handle Errors here.
       }).catch(function (error) {
@@ -54,7 +52,6 @@ $(document).ready(function () {
         } else {
           alert(errorMessage);
         }
-        console.log(error);
       });
     // Hide registration modal --** Doesn't quite work yet
     $('#login-modal').modal('close');
@@ -64,7 +61,6 @@ $(document).ready(function () {
   function handleUserSignOut() {
     firebase.auth().signOut().then(function () {
       $('#login-modal').css('display:none');
-      console.log("Logged out!");
       // Clear absolutely everything stored in localStorage using localStorage.clear()
       localStorage.clear();
       location.reload(true);
@@ -93,15 +89,11 @@ $(document).ready(function () {
         $('#login-modal').modal('close');
         $("#signInBtn").hide();
         $("#signOutBtn").show();
-        console.log(user);
-        console.log(user.user.uid);
         getUserData(user.user.uid);
       }).catch(function (error) {
         if (error.code === "auth/invalid-email") {
           $('#login-modal').modal('open');
           alert("Incorrect email format.");
-          console.log(error.code);
-          console.log(error.message);
           $("#signInBtn").show();
           $("#signOutBtn").hide();
           return;
@@ -109,8 +101,6 @@ $(document).ready(function () {
         if (error.code === "auth/user-not-found") {
           $('#login-modal').modal('open');
           alert("Invalid email or password");
-          console.log(error.code);
-          console.log(error.message);
           $("#signInBtn").show();
           $("#signOutBtn").hide();
           return;
@@ -123,8 +113,6 @@ $(document).ready(function () {
     return firebase.database().ref('/users/' + user).once('value').then(function (snapshot) {
       var displayName = (snapshot.val() && snapshot.val().displayName);
       var userEmail = (snapshot.val() && snapshot.val().email);
-      console.log(displayName);
-      console.log(userEmail);
       greetUser(displayName);
       setLocalStorge(displayName, userEmail, user);
     });
@@ -143,17 +131,14 @@ $(document).ready(function () {
     localStorage.setItem("displayName", displayName);
     localStorage.setItem("email", email);
     localStorage.setItem("uid", uid);
-    console.log(displayName, email, uid);
   }
 
   // Functiont hat initiates app by checking if a user logged in.
   function checkIfSignedIn() {
     let displayName = localStorage.getItem('displayName');
-    console.log(displayName);
     if (displayName) {
       greetUser(displayName);
     } else {
-      console.log("No user is logged in");
       localStorage.clear();
       $("#signInBtn").show();
     }
@@ -180,7 +165,6 @@ $(document).ready(function () {
       } else if (errorCode == 'auth/user-not-found') {
         alert(errorMessage);
       }
-      console.log(error);
       // [END_EXCLUDE]
     });
     // [END sendpasswordemail];

@@ -8,11 +8,9 @@ $(document).ready(function () {
         let email = user.email;
         let isAnonymous = user.isAnonymous;
         let uid = user.uid;
-        console.log(user);
-        console.log(email, isAnonymous, uid);
         getFavorites(uid);
       } else {
-        console.log("No user is signed in.");
+        // Do nothing
       }
     });
 
@@ -95,7 +93,7 @@ $(document).ready(function () {
         cuisineImage = './assets/images/african1.jpg';
         break;
       default:
-        console.log('Sorry, we dont have ' + favorites.cuisine + ' in our system yet.');
+        // console.log('Sorry, we dont have ' + favorites.cuisine + ' in our system yet.');
         cuisineImage = './assets/images/vegetarian1.jpg';
     }
 

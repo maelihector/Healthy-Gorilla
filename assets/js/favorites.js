@@ -12,13 +12,11 @@ $(document).ready(function () {
     } else {
 
       let currentUserUid = user.uid;
-      console.log(currentUserUid);
 
       // Grab the parent element of the clicked image
       let favoriteCollectionItem = $(this).parent();
       // Grab the favorite cuisine
       let favoriteCuisine = favoriteCollectionItem[0].offsetParent.offsetParent.firstElementChild.childNodes[0].innerText;
-      console.log(favoriteCuisine);
       // Grab the information we want to store in the database
       let favoriteObject = favoriteCollectionItem[0].parentElement.children;
       let name = favoriteObject[0].innerHTML;
