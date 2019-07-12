@@ -20,9 +20,9 @@ function createCard(cuisine, restaurants) {
   $("#cardDiv").append(cardElem);
 }
 
-var geocoder = new google.maps.Geocoder();
 
 function codeAddress() {
+  var geocoder = new google.maps.Geocoder();
   // Grab user's zipcode when submitted
   var address = $("#zipcode").val();
   // Find lat and long of zipcode using geocoder to send to vegguide query
