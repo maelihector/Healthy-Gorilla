@@ -74,3 +74,14 @@ $("#enterButton").click(function () {
     scrollTop: $("#cardDiv").offset().top
   }, 2000);
 });
+
+$("#zipcode").keypress(function (event) {
+  if (event.which === 13) {
+    event.preventDefault();
+    codeAddress(); 
+    $('#after-hero').removeClass('after-hero');
+    $('html, body').animate({
+      scrollTop: $("#cardDiv").offset().top
+    }, 2000);
+  }
+});
