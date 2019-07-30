@@ -34,7 +34,7 @@ function codeAddress() {
       lng = results[0].geometry.location.lng();
       var input = lat + "," + lng;
       // Query vegguide using user lat and long
-      var queryURL = "https://www.vegguide.org/search/by-lat-long/" + input + "/filter/category_id=1;veg_level=2";
+      var queryURL = "https://www.vegguide.org/search/by-lat-long/" + input + "/filter/distance=3;category_id=1;veg_level=2";
       // Get vegguide results and loop through them to seperate by restaurant and cuisine
       $.get(queryURL).then(function (res) {
         cuisines = [];
@@ -64,9 +64,8 @@ function codeAddress() {
     }
   })
 }
-// Call codeAddress() function
-// $("#enterButton").on("click", codeAddress);
 
+// Onclick event to trigger codeAddress()
 $("#enterButton").click(function () {
   codeAddress();
   $('#after-hero').removeClass('after-hero');
@@ -75,6 +74,7 @@ $("#enterButton").click(function () {
   }, 2000);
 });
 
+// Keypress Enter event to trigger codeAddress()
 $("#zipcode").keypress(function (event) {
   if (event.which === 13) {
     event.preventDefault();
