@@ -37,6 +37,9 @@ function codeAddress() {
       var queryURL = "https://www.vegguide.org/search/by-lat-long/" + input + "/filter/distance=3;category_id=1;veg_level=2";
       // Get vegguide results and loop through them to seperate by restaurant and cuisine
       $.get(queryURL).then(function (res) {
+        if (res.entry_count === 0) {
+          alert("Sorry, didn't find any restaurant results at " + address + " zip code.");
+        }
         cuisines = [];
         for (let i in res.entries) {
           for (let j in res.entries[i].cuisines) {
@@ -65,8 +68,25 @@ function codeAddress() {
   })
 }
 
+// Validate zipcode
+function validateZip() {
+  var zipcodeLength = $("#zipcode").val();
+  zipcodeLength = zipcodeLength.length;
+
+  if (zipcodeLength !== 5) {
+    alert("Pease enter 5 digits.");
+    return false;
+  } else {
+    return true;
+  }
+}
+
 // Onclick event to trigger codeAddress()
-$("#enterButton").click(function () {
+$("#enterButton").click(function (e) {
+  e.preventDefault();
+  if (validateZip() === false) {
+    return false;
+  }
   codeAddress();
   $('#after-hero').removeClass('after-hero');
   $('html, body').animate({
@@ -78,7 +98,10 @@ $("#enterButton").click(function () {
 $("#zipcode").keypress(function (event) {
   if (event.which === 13) {
     event.preventDefault();
-    codeAddress(); 
+    if (validateZip() === false) {
+      return false;
+    }
+    codeAddress();
     $('#after-hero').removeClass('after-hero');
     $('html, body').animate({
       scrollTop: $("#cardDiv").offset().top
