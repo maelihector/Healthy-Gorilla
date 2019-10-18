@@ -20,7 +20,7 @@ $(document).ready(function () {
     var email = $("#register_email").val();
     var password = $("#register_password").val();
     var displayName = $("#register_name").val();
-    // Make sure user enters email address
+    // Make sure user enters an email address
     if (email.length < 4) {
       alert('Please enter an email address.');
       return;
@@ -33,7 +33,7 @@ $(document).ready(function () {
     // Create new user with user email and password and check for firebase errors
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(function (user) {
-        let uid = user.user.uid;
+        var uid = user.user.uid;
         // Save user info to firebase database
         firebase.database().ref('users/' + uid).set({
           displayName: displayName,
@@ -42,7 +42,7 @@ $(document).ready(function () {
         // Save user info to local storage
         setLocalStorge(displayName, email, uid);
         greetUser(displayName);
-        // Handle Errors here.
+        // Handle errors here
       }).catch(function (error) {
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -68,8 +68,9 @@ $(document).ready(function () {
     });
   }
 
-  // Functione event to handle user login
+  // Function event to handle user login
   function handleUserLogIn() {
+    // Grab login credentials
     var email = $("#login_email").val().trim();
     var password = $("#login_password").val().trim();
 
@@ -84,6 +85,7 @@ $(document).ready(function () {
       return false;
     }
 
+    // Sign in user with firebase
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(function (user) {
         $('#login-modal').modal('close');
@@ -108,7 +110,7 @@ $(document).ready(function () {
       });
   }
 
-  // Function that finds user data 
+  // Function that finds user data in firebase, greets user, and updates local storage
   function getUserData(user) {
     return firebase.database().ref('/users/' + user).once('value').then(function (snapshot) {
       var displayName = (snapshot.val() && snapshot.val().displayName);
@@ -118,7 +120,7 @@ $(document).ready(function () {
     });
   }
 
-  // Function that changes HTML when user is signed in
+  // Function that changes user name in HTML when user is signed in
   function greetUser(displayName) {
     $("#helloName").show();
     $("#helloName").html("<h2>Hello " + displayName + "!</h2>"); // works after refresh if user didn't sign out
@@ -133,9 +135,9 @@ $(document).ready(function () {
     localStorage.setItem("uid", uid);
   }
 
-  // Functiont hat initiates app by checking if a user logged in.
+  // Functiont that initiates app by checking if a user logged in
   function checkIfSignedIn() {
-    let displayName = localStorage.getItem('displayName');
+    var displayName = localStorage.getItem('displayName');
     if (displayName) {
       greetUser(displayName);
     } else {
@@ -148,16 +150,15 @@ $(document).ready(function () {
 
   // Function to send a password reset link to user
   function sendPasswordReset() {
-    let email = $("#lost_email").val();
+    var email = $("#lost_email").val();
     // [START sendpasswordemail]
     firebase.auth().sendPasswordResetEmail(email).then(function () {
       // Password Reset Email Sent!
       alert('Password Reset Email Sent!');
     }).catch(function (error) {
-      // Handle Errors here.
+      // Handle errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
-
       if (errorCode == 'auth/invalid-email') {
         alert(errorMessage);
       } else if (errorCode == 'auth/user-not-found') {
@@ -191,7 +192,7 @@ $(document).ready(function () {
   $("#password-reset-btn").on("click", function (event) {
     event.preventDefault();
     sendPasswordReset();
-  })
+  });
 
 
 

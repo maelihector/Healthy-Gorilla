@@ -1,54 +1,13 @@
 $(document).ready(function () {
 
-
   var formLogin = $('#login-form');
   var formRegister = $('#register-form');
   var modalAnimateTime = 300;
   var divForms = $('#div-forms');
   var formLost = $('#lost-form');
-  var msgAnimateTime = 150;
-  var msgShowTime = 2000;
-
-  //   $("form").submit(function () {
-  //     switch (this.id) {
-  //       case "login-form":
-  //         var $lg_email = $('#login_email').val();
-  //         var $lg_password = $('#login_password').val();
-  //         if ($lg_email == "ERROR") {
-  //           msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), "error", "glyphicon-remove", "Login error");
-  //         } else {
-  //           msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), "success", "glyphicon-ok", "Login OK");
-  //         }
-  //         return false;
-  //         break;
-  //       case "lost-form":
-  //         var $ls_email = $('#lost_email').val();
-  //         if ($ls_email == "ERROR") {
-  //           msgChange($('#div-lost-msg'), $('#icon-lost-msg'), $('#text-lost-msg'), "error", "glyphicon-remove", "Send error");
-  //         } else {
-  //           msgChange($('#div-lost-msg'), $('#icon-lost-msg'), $('#text-lost-msg'), "success", "glyphicon-ok", "Send OK");
-  //         }
-  //         return false;
-  //         break;
-  //       case "register-form":
-  //         // var $rg_name=$('#register_name').val();
-  //         var $rg_email = $('#register_email').val();
-  //         var $rg_password = $('#register_password').val();
-  //         if ($rg_email == "ERROR") {
-  //           msgChange($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), "error", "glyphicon-remove", "Register error");
-  //         } else {
-  //           msgChange($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), "success", "glyphicon-ok", "Register OK");
-  //         }
-  //         return false;
-  //         break;
-  //       default:
-  //         return false;
-  //     }
-  //     return false;
-  // });
 
   $('#login_register_btn').click(function () {
-    modalAnimate(formLogin, formRegister)
+    modalAnimate(formLogin, formRegister);
   });
   $('#register_login_btn').click(function () {
     modalAnimate(formRegister, formLogin);

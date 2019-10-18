@@ -29,9 +29,9 @@
   <!-- CSS -->
   <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="./assets/materialize/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
-  <link href="./assets/css/main.css" type="text/css" rel="stylesheet" media="screen,projection" />
-  <link href="./assets/css/modal.css" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link href="./assets/materialize/css/materialize.css" type="text/css" rel="stylesheet" media="screen" />
+  <link href="./assets/css/main.css" type="text/css" rel="stylesheet" media="screen" />
+  <link href="./assets/css/modal.css" type="text/css" rel="stylesheet" media="screen" />
 
 
 </head>
@@ -79,7 +79,7 @@
 
         <!-- Logo goes here -->
         <a href="index.html" class="brand-logo right">
-          <img src="./assets/images/HG3.png">
+          <img src="./assets/images/HG3.png" alt="Green bowl and utensils">
         </a>
 
       </div>
@@ -91,7 +91,7 @@
     <div class="main-container">
       <div id="hero" class="hero hero--index">
         <div class="container">
-          <h1 id="helloName"></h1>
+          <h1 id="helloName">Hello</h1>
           <h1>Healthy Gorilla</h1>
           <!-- <a id="getStarted" href="index.html#searchZip" class="btn btn-primary btn-lg">Get Started</a> -->
           <h3>Delicous. Healthy. At Your Fingertips. </h3>
@@ -116,7 +116,7 @@
                   <div class="row align-center">
                     <div class="input-field col s6">
                       <i class="material-icons prefix" style="color:rgb(4, 63, 4);">account_circle</i>
-                      <input id="contact-name" id="icon_prefix" type="text" class="validate">
+                      <input id="contact-name" type="text" class="validate">
                       <label for="contact-name">Your Name</label>
                     </div>
                     <div class="input-field col s6">
@@ -139,8 +139,6 @@
               <button data-target="message-sent" class="btn modal-trigger waves-effect waves-light"
                 id="sendMessage">Send
                 Message</button>
-
-
             </div>
           </div>
         </div>
@@ -178,13 +176,11 @@
   </div>
 
   <!-- Modal Structure -->
-  <div class="modal fade" id="login-modal" tabindex="-1" data-toggle="modal" role="dialog"
-    aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal fade" id="login-modal" tabindex="-1" data-toggle="modal" role="dialog" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-          </button>
         </div>
 
         <!-- Begin # DIV Form -->

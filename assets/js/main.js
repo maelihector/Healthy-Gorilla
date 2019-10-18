@@ -1,21 +1,26 @@
 $(document).ready(function () {
 
-  // Materialize JS
+  // Javascript used in Materialize' CSS
+  
   $('.button-collapse').sideNav({
     closeOnClick: true
   });
 
   $('#login-modal').modal();
+
   $('#message-sent').modal();
 
-
   $('#mobile-nav-trigger').on('click', function () {
+
     $('.navigation').css({
       '-webkit-transform': 'translateX(0%)',
       'transform': 'translateX(0%)'
     });
+
     $('body').addClass('js-modal-visible');
+
     $('#mobile-nav-trigger').addClass('js-modal-shown');
+
   });
 
   $('.js-modal-shown').on('click', function () {
@@ -27,9 +32,9 @@ $(document).ready(function () {
 
   // Function to remove 'Get Started' Button after user clicks on it
   $("#getStarted").on("click", function () {
-    let btn = $(this);
+    var btn = $(this);
     btn.attr("style", "display: none;");
-  })
+  });
 
   // Function to animate hero
   $("#enterButton").on("click", function () {
@@ -37,17 +42,17 @@ $(document).ready(function () {
       opacity: ".15"
     }, 1000);
 
-  })
+  });
 });
 
-$(document).ready()
-var width = function (checkWidth) {
+var width = function () {
   if (window.width > 768) {
-    $("#mobile-demo").hide()
+    $("#mobile-demo").hide();
   } else {
-    $("#mobile-demo").show()
+    $("#mobile-demo").show();
   }
 };
+
 width;
 
 $(document).on('click', '.meet-div-link', function () {

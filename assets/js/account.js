@@ -2,12 +2,9 @@ $(document).ready(function () {
 
   function initApp() {
     firebase.auth().onAuthStateChanged(function (user) {
-
       if (user) {
         // User is signed in.
-        let email = user.email;
-        let isAnonymous = user.isAnonymous;
-        let uid = user.uid;
+        var uid = user.uid;
         getFavorites(uid);
       } else {
         // Do nothing
@@ -21,7 +18,7 @@ $(document).ready(function () {
   // Function to create favorite cards
   function createFavoriteCards(favorites) {
     // Add appropriate image
-    let cuisineImage;
+    var cuisineImage;
     switch (favorites.cuisine) {
       case 'Mexican':
         cuisineImage = './assets/images/mexican1.jpg';
@@ -98,7 +95,7 @@ $(document).ready(function () {
     }
 
     // Build card using jQuery
-    let favoriteCardElement = $("<div>").addClass("col s12 m6 l4 size-med")
+    var favoriteCardElement = $("<div>").addClass("col s12 m6 l4 size-med")
       .append($("<div>").addClass("card")
         .append($("<div>").addClass("card-image")
           .append($("<img>").attr("src", cuisineImage).attr("alt", "Image of cuisine type"))
@@ -114,7 +111,7 @@ $(document).ready(function () {
         .append($("<div>").addClass("card-action").attr("style", "overflow-wrap:break-word")
           .append($("<a>").attr("href", favorites.website).attr("style", "text-transform:none").text(favorites.website))
         )
-      )
+      );
     // Append the created cards
     $("#favorites").append(favoriteCardElement);
   }
@@ -123,13 +120,14 @@ $(document).ready(function () {
   function getFavorites(userId) {
     // Call firebase database to get user's data
     return firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
-      cards = [];
       // Grab favorites data
-      let favorites = snapshot.val().favorites;
+      var favorites = snapshot.val().favorites;
       // Loop through favorites object 
-      for (let i in favorites) {
-        // Call crateFavoriteCards to create card for each favorite
-        createFavoriteCards(favorites[i]);
+      for (var i in favorites) {
+        if(favorites.hasOwnProperty(i)){
+          // Call crateFavoriteCards to create card for each favorite
+          createFavoriteCards(favorites[i]);
+        }
       }
     });
   }
@@ -137,16 +135,15 @@ $(document).ready(function () {
   // Function to update user favorites 
   $(document).on('click', '#redheart', function () {
     // Get userId
-    let userId = firebase.auth().currentUser.uid;
-    // Grab the elememt user wants deleted
-    let favoriteItem = $(this).parent();
-    let keyToRemove = favoriteItem[0].offsetParent.childNodes[0].innerText;
-
+    var userId = firebase.auth().currentUser.uid;
+    // Grab the elememt user wants devared
+    var favoriteItem = $(this).parent();
+    var keyToRemove = favoriteItem[0].offsetParent.childNodes[0].innerText;
     // Remove favorite from database
     return firebase.database().ref('/users/' + userId + '/favorites/' + keyToRemove).remove()
       .then(function () {
         // Hide card
-        let cardToBeRemoved = favoriteItem[0].parentElement.parentElement.parentElement;
+        var cardToBeRemoved = favoriteItem[0].parentElement.parentElement.parentElement;
         $(cardToBeRemoved).attr("style", "display:none");
       });
   });
