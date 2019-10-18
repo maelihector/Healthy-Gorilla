@@ -30,9 +30,9 @@ We have a lot in mind. We want to:
 
 1. Allow for users to set the *vegetarian level* of their search:
 
-				2  - mostly vegetarian, but not always
-				3  - vegetarian
-				4  - vegan
+				1  - mostly vegetarian, but not always
+				2  - vegetarian
+				3  - vegan
 
 	currently this level is automatically set to 2.
 
@@ -45,7 +45,7 @@ We have a lot in mind. We want to:
 
 To assist in finding *actual* vegetarian restaurants. 
 
-[Healthy Gorilla | HG](https://healthygorilla.web.app/index.html) is not only for the respective [5% & 3%](https://news.gallup.com/poll/238328/snapshot-few-americans-vegetarian-vegan.aspx?g_source=link_NEWSV9&g_medium=NEWSFEED&g_campaign=item_&g_content=Snapshot%3a%2520Few%2520Americans%2520Vegetarian%2520or%2520Vegan) of vegetarians and vegans out there. HG is also for the person who tells themselves that they’re going to *try* to eat vegetarian or vegan food for a period of time. We'll call these people **experimenters**, and they are trying this for several different reasons; for their health, for ethical reasons, to help better understand their vegan or vegetarian friend, or to simply challenge themselves. Whatever the reason, they need a surefire way to get a great list of potential restaurants.
+[Healthy Gorilla | HG](https://healthygorilla.web.app/index.html) is not only for the respective [5% & 3%](https://news.gallup.com/poll/238328/snapshot-few-americans-vegetarian-vegan.aspx?g_source=link_NEWSV9&g_medium=NEWSFEED&g_campaign=item_&g_content=Snapshot%3a%2520Few%2520Americans%2520Vegetarian%2520or%2520Vegan) of vegetarians and vegans out there. The application is also for the person who tells themselves that they’re going to *try* to eat vegetarian or vegan food for a period of time. We'll call these people **experimenters**, and they are trying this for several different reasons; for their health, for ethical reasons, to help better understand their vegan or vegetarian friend, or to simply challenge themselves. Whatever the reason, they need a surefire way to get a great list of potential restaurants.
 
 When **experimenters** search for restaurants that will keep them from temptation, they find that the algorithms linked to them would rather steer them *towards* it. What happens is that they search their favorite restaurant finder with the keywords 'vegetarian,' 'vegan,' or the formers with 'friendly' attached after it, and more likely than not they get nothing good, or worse, they get some sponsored restaurant advertising with a photo of some deliciously prepared animal product. And yes, although they do find *some* restaurant finders that return a lot of searches, about **1/3** of their top results are actually misleading or down right wrong.
 
