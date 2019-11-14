@@ -1,16 +1,16 @@
 # Healthy Gorilla | HG
 
-## What is this?
+## What is Healthy Gorilla
 
 Healthy Gorilla is a Restaurant Finder Application that takes a zip code input and retrieves nearby vegetarian restaurants for the user. 
 
 Healthy Gorilla also allows for logged-in users to save a list of their favorite restaurants to their account. 
 
-## How does it work?
+## How does Healthy Gorilla work?
 
-Along with [Firebase Authentication and Realtime Database](https://firebase.google.com/) to authenticate users, and to host restaurant data, our application uses [Google Maps Geocode API](https://developers.google.com/maps/documentation/geocoding/start) to retrieve the latitude and longitude of the user's zip code, which are then used to query the [Vegguide API](https://www.vegguide.org/)  which sends information about restaurants within a 3-mile radius.
+Along with [Firebase Authentication and Realtime Database](https://firebase.google.com/) to authenticate users and to host restaurant data, our application uses [Google Maps Geocode API](https://developers.google.com/maps/documentation/geocoding/start) to retrieve the latitude and longitude of the user's zip code, which are then used to query the [Vegguide API](https://www.vegguide.org/)  which sends information about restaurants within a 3-mile radius.
 
-## What does it do?
+## What does Healthy Gorilla do?
 
 - Healthy Gorilla allows for users to search for location-based vegetarian restaurants by inputting any U.S. zip code to the application.
 
@@ -41,13 +41,13 @@ We have a lot in mind. We want to:
 4. Add a feature that allow users to connect and plan lunch meetups at the listed restaurants for the purpose of getting with like-minded folks to help them stay on-track.
 5. Add more user profile options.
 
-## Why was it made?
+## Why was Healthy Gorilla made?
 
 To assist in finding *actual* vegetarian restaurants. 
 
 [Healthy Gorilla | HG](https://healthygorilla.web.app/index.html) is not only for the respective [5% & 3%](https://news.gallup.com/poll/238328/snapshot-few-americans-vegetarian-vegan.aspx?g_source=link_NEWSV9&g_medium=NEWSFEED&g_campaign=item_&g_content=Snapshot%3a%2520Few%2520Americans%2520Vegetarian%2520or%2520Vegan) of vegetarians and vegans out there. The application is also for the person who tells themselves that they’re going to *try* to eat vegetarian or vegan food for a period of time. We'll call these people **experimenters**, and they are trying this for several different reasons; for their health, for ethical reasons, to help better understand their vegan or vegetarian friend, or to simply challenge themselves. Whatever the reason, they need a surefire way to get a great list of potential restaurants.
 
-When **experimenters** search for restaurants that will keep them from temptation, they find that the algorithms linked to them would rather steer them *towards* it. What happens is that they search their favorite restaurant finder with the keywords 'vegetarian,' 'vegan,' or the formers with 'friendly' attached after it, and more likely than not they get nothing good, or worse, they get some sponsored restaurant advertising with a photo of some deliciously prepared animal product. And yes, although they do find *some* restaurant finders that return a lot of searches, about **1/3** of their top results are actually misleading or down right wrong.
+When **experimenters** search for restaurants that will keep them from temptation, they find that the algorithms linked to them would rather steer them *towards* it. What happens is that they search their favorite restaurant finder with the keywords 'vegetarian,' 'vegan,' or the formers with 'friendly' attached after it, and more likely than not they get nothing good, or worse, they get some sponsored restaurant advertising with a photo of some delicious-looking prepared animal product. And yes, although they do find *some* restaurant finders that return a lot of searches, about **1/3** of their top results are actually misleading or down right wrong.
 
 The truth is, that because vegans, vegetarians, and **experimenters** are so few in numbers, restaurant finders don’t care to cater to them.
 
@@ -72,9 +72,9 @@ JavaScript
 
 ## Authors
 
-* **[Maeli Hector](https://github.com/maelihector)** - *HTML/CSS/JavaScript/Firebase*
+* **[Maeli Hector](https://github.com/maelihector)** - *Authentication/Firebase/JavaScript/HTML/CSS*
 
-* **[Kat Thompson](https://github.com/thompsonkathryne)** - *Authentication/Firebase/Google Geocoding*
+* **[Kat Thompson](https://github.com/thompsonkathryne)** - *Authentication/Google Geocoding*
 
 * **[Mike Hong](https://github.com/mikehong123)** - *HTML/CSS*
 
